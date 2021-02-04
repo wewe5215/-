@@ -1,0 +1,42 @@
+#include <stdio.h>
+int idx[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+int main(int argc, const char * argv[])
+{
+    int r,c=0;
+    int t=0;
+    char array[105][105];
+    scanf("%d %d %d\n",&r,&c,&t);//要加換行不然會讀到前面的換行符號
+    for(int i=0;i<r;i++)
+    {
+        for(int j=0;j<=c;j++)
+        {
+            scanf("%c",&array[i][j]);
+        }
+    }
+    while(t--)
+    {
+        for(int i=0;i<r;i++)for(int j=0;j<c;j++)if(array[i][j]=='F')array[i][j]='S';
+       for(int i=0;i<r;i++)
+       {
+           for(int j=0;j<c;j++)
+          {
+              if(array[i][j]=='S')
+              {
+                  for(int a=0;a<4;a++)
+                  {
+                     if(array[i+idx[a][0]][j+idx[a][1]]=='C')
+                         array[i+idx[a][0]][j+idx[a][1]]='F';
+                         
+                  }
+                  
+                  
+              }
+          }
+       }
+        for(int i=0;i<r;i++)for(int j=0;j<c;j++)if(array[i][j]=='S')array[i][j]='F';
+        
+    }
+    for(int i=0;i<r;i++)for(int j=0;j<=c;j++)printf("%c",array[i][j]);
+    
+        return 0;
+}
