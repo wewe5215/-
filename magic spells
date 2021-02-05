@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+int main(int argc, const char * argv[])
+{
+    int t=0;
+    scanf("%d",&t);
+    while(t--)
+    {
+        char a[1005],b[1005];
+        scanf("%s %s",a,b);
+        int lenA=strlen(a);
+        int lenB=strlen(b);
+        int count=0;
+        for(int i=0;i<lenA;i++)
+        {
+            if(a[i]!=b[0])continue;
+            if(lenA-(i+1)>lenB)continue;
+            else
+            {
+                int flag=0;
+                for(int j=0;j<=lenA-(i+1);j++)
+                {
+                    if(a[i+j]!=b[j])
+                    {
+                        flag=1;
+                        count=0;
+                        break;
+                    }
+                    else
+                        count++;
+                }
+                if(flag)
+                   continue;
+                if(flag==0)break;//不然會重複算
+                
+            }
+        }
+        
+        printf("%s",a);
+        
+        for(int i=count;i<lenB;i++)printf("%c",b[i]);
+        printf("\n");
+        
+        
+        
+        
+    }
+    
+       
+    
+    
+    
+    
+    
+    return 0;
+}
