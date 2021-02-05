@@ -1,0 +1,60 @@
+#include <stdio.h>
+int main(int argc, const char * argv[])
+{
+    int n,t=0;
+    double x[505];//double精確度比float高，用float只有兩個AC
+    double r[505][505];
+    scanf("%d %d",&n,&t);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%lf",&x[i]);
+       
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%lf",&r[i][j]);
+        }
+    }
+    while(t--)
+    {
+        double ans[505];
+        for(int i=0;i<n;i++)//調整匯率
+        {
+            if(x[i]<10)
+            {
+                for(int j=0;j<n;j++)
+                {
+                    r[j][j]+=r[j][i];//別人不給
+                    r[j][i]=0;
+                    r[i][j]=0;//不給別人
+                }
+                r[i][i]=1;
+                
+                
+            }
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                ans[i]+=x[j]*r[j][i];
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            
+            x[i]=ans[i];
+            ans[i]=0;
+        }
+        
+        
+    }
+    
+    for(int i=0;i<n;i++)printf("%.1lf\n",x[i]);
+    
+    return 0;
+}
+
