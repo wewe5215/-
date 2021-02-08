@@ -1,0 +1,49 @@
+#include <stdio.h>
+int s[1000000];
+int record[32][1000000];
+int main(int argc, const char * argv[])
+{
+    int n,q=0;
+    scanf("%d %d",&n,&q);
+    
+    for(int i=0;i<n;i++)scanf("%d",&s[i]);
+   
+    record[s[0]][0]=1;
+    
+    for(int i=1;i<n;i++)
+    {
+        for(int j=0;j<32;j++)
+        {
+            record[j][i]=record[j][i-1];
+        }
+       
+         record[s[i]][i]=record[s[i]][i-1]+1;
+    }
+    /* for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<n;j++)printf("%d",record[i][j]);
+    
+        printf("\n");
+    }*/
+    
+    while(q--)
+    {
+        int l,r=0;
+        int count=0;
+        scanf("%d %d",&l,&r);
+        for(int i=0;i<32;i++)
+        {
+            if(l-1>=0)
+            {
+                if(record[i][l-1]!=record[i][r])count++;
+            }
+            else if(l==0)
+            {
+                if(record[i][l]!=record[i][r]||record[i][l]==1)count++;//這行很重要！！怒！！！
+            }
+        }
+        printf("%d\n",count);
+    }
+    
+    return 0;
+}
