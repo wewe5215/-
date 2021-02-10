@@ -1,0 +1,132 @@
+#include <stdio.h>
+#include<string.h>
+// TLE ver.
+int main(int argc, const char * argv[])
+{
+    int t=0;
+    scanf("%d",&t);
+    while(t--)
+    {
+        char a[2005],b[2005];
+        int q=0;
+        int record1[26][2005];
+        int record2[26][2005];
+        scanf("%s %s",a,b);
+        scanf("%d",&q);
+        int lenA,lenB=0;
+        lenA=strlen(a);
+        lenB=strlen(b);
+        for(int i=0;i<26;i++)record1[i][0]=0;
+        record1[a[0]-'a'-0][0]=1;
+        for(int i=1;i<lenA;i++)
+        {
+            for(int j=0;j<26;j++)
+            {
+                record1[j][i]=record1[j][i-1];
+            }
+            record1[a[i]-'a'-0][i]++;
+        }
+        for(int i=0;i<26;i++)record2[i][0]=0;
+        record2[b[0]-'a'-0][0]=1;
+        for(int i=1;i<lenB;i++)
+        {
+            for(int j=0;j<26;j++)record2[j][i]=record2[j][i-1];
+            record2[b[i]-'a'-0][i]++;
+        }
+        /*for(int i=0;i<4;i++)
+        {
+            for(int j=3;j<lenA;j++)printf("%d",record1[i][j]);
+            printf("\n");
+        }
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<lenB;j++)printf("%d",record2[i][j]);
+            printf("\n");
+        }*/
+       while(q--)
+       {
+           int r,l=0;
+           int count=1;
+           int  flag=0;
+           scanf("%d %d",&l,&r);
+           for(int i=l;i<=r;i++)
+           {
+               if(i>=1)
+               {
+                   if(record1[a[i]-'a'-0][i]-record1[a[i]-'a'-0][i-1]==record2[a[i]-'a'-0][0])
+                   {
+                       if(r-i>lenB)continue;
+                       else
+                       {
+                           flag=0;
+                           for(int j=1;j<=r-i;j++)
+                           {
+//                               printf("%d,%d ",j,flag);
+                               if(record1[a[i+j]-'a'-0][i+j]-record1[a[i+j]-'a'-0][i-1+j]!=record2[a[i+j]-'a'-0][j]-record2[a[i+j]-'a'-0][j-1])
+                               {
+                                   flag=1;
+                                   break;
+                               }
+                               
+                           }
+                           if(flag)
+                           {
+                               
+                               continue;
+                           }
+                           else
+                           {
+                               count++;
+                               
+                           }
+                       }
+                   }
+                   else continue;
+               }
+              else
+               {
+                   if(record1[a[i]-'a'-0][i]==record2[a[i]-'a'-0][0])
+                   {
+                       if(r-i>lenB)continue;
+                       else
+                       {
+                           flag=0;
+                           for(int j=1;j<=r-i;j++)
+                           {
+                               if(record1[a[i+j]-'a'-0][i+j]-record1[a[i+j]-'a'-0][i-1+j]!=record2[a[i+j]-'a'-0][j]-record2[a[i+j]-'a'-0][j-1])
+                               {
+                                   flag=1;
+                                   break;
+                               }
+                           }
+                           if(flag)continue;
+                           else
+                           {
+                               count++;
+                           }
+                       }
+                   }
+                   else continue;
+                }
+            }
+           
+           printf("%d\n",count);
+
+           
+           
+           
+       }
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    return 0;
+}
